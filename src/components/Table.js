@@ -1,10 +1,34 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Table({ list }) {
   const [nameFilter, setNameFilter] = useState('');
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [compareFilter, setCompareFilter] = useState('maior que');
+  const [numberFilter, setNumberFilter] = useState(0);
+  const [finalList, setFinalList] = useState([]);
 
-  const filteredList = list.filter((obj) => obj.name.includes(nameFilter));
+  useEffect(() => {
+    setFinalList(list);
+  }, [list]);
+
+  const handleFilter = (paramList) => {
+    const final = paramList.filter((obj) => {
+      let result = false;
+      if (compareFilter === 'maior que') {
+        result = obj[columnFilter] > numberFilter;
+      } else if (compareFilter === 'menor que') {
+        result = obj[columnFilter] < numberFilter;
+      } else if (compareFilter === 'igual a') {
+        result = parseInt(obj[columnFilter], 10) === numberFilter;
+      }
+      return result;
+    });
+
+    setFinalList(final);
+  };
+
+  const filteredList = finalList.filter((obj) => obj.name.includes(nameFilter));
 
   return (
     <>
@@ -16,7 +40,10 @@ function Table({ list }) {
         onChange={ ({ target }) => setNameFilter(target.value) }
       />
 
-      <select data-testid="column-filter">
+      <select
+        data-testid="column-filter"
+        onChange={ ({ target }) => { setColumnFilter(target.value); } }
+      >
         <option value="population">population</option>
         <option value="orbital_period">orbital_period</option>
         <option value="diameter">diameter</option>
@@ -24,15 +51,28 @@ function Table({ list }) {
         <option value="surface_water">surface_water</option>
       </select>
 
-      <select data-testid="comparison-filter">
-        <option value="higher">maior que</option>
-        <option value="lower">menor que</option>
-        <option value="equals">igual a</option>
+      <select
+        data-testid="comparison-filter"
+        onChange={ ({ target }) => { setCompareFilter(target.value); } }
+      >
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
 
-      <input data-testid="value-filter" type="number" />
+      <input
+        data-testid="value-filter"
+        type="number"
+        value={ numberFilter }
+        onChange={ ({ target }) => { setNumberFilter(parseInt(target.value, 10)); } }
+      />
 
-      <button data-testid="button-filter">Filter</button>
+      <button
+        data-testid="button-filter"
+        onClick={ () => handleFilter(list) }
+      >
+        Filter
+      </button>
 
       <table>
         <thead>
