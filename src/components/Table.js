@@ -17,17 +17,17 @@ function Table({ list }) {
       />
 
       <select data-testid="column-filter">
-        <option value="population">Population</option>
-        <option value="orbital_period">Orbital Period</option>
-        <option value="diameter">Diameter</option>
-        <option value="rotation_period">Rotation Period</option>
-        <option value="surface_water">Surface Water</option>
+        <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
       </select>
 
       <select data-testid="comparison-filter">
-        <option value="higher">Higher than</option>
-        <option value="lower">Lower than</option>
-        <option value="equals">Equals</option>
+        <option value="higher">maior que</option>
+        <option value="lower">menor que</option>
+        <option value="equals">igual a</option>
       </select>
 
       <input data-testid="value-filter" type="number" />
