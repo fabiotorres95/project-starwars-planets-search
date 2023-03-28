@@ -8,12 +8,32 @@ function Table({ list }) {
 
   return (
     <>
+      <br />
       <input
         data-testid="name-filter"
-        placeholder="name"
+        placeholder="filter by name"
         value={ nameFilter }
         onChange={ ({ target }) => setNameFilter(target.value) }
       />
+
+      <select data-testid="column-filter">
+        <option value="population">Population</option>
+        <option value="orbital_period">Orbital Period</option>
+        <option value="diameter">Diameter</option>
+        <option value="rotation_period">Rotation Period</option>
+        <option value="surface_water">Surface Water</option>
+      </select>
+
+      <select data-testid="comparison-filter">
+        <option value="higher">Higher than</option>
+        <option value="lower">Lower than</option>
+        <option value="equals">Equals</option>
+      </select>
+
+      <input data-testid="value-filter" type="number" />
+
+      <button data-testid="button-filter">Filter</button>
+
       <table>
         <thead>
           <tr>
