@@ -30,7 +30,7 @@ function Table({ list }) {
 
     const ten = 10;
     const newArray = [];
-    // activeFilter.map((obj) => newArray.push(obj));
+    activeFilter.map((obj) => newArray.push(obj));
     newArray.push({
       column: columnFilter,
       compare: compareFilter,
@@ -81,7 +81,7 @@ function Table({ list }) {
 
       <button
         data-testid="button-filter"
-        onClick={ () => handleFilter(list) }
+        onClick={ () => handleFilter(finalList) }
       >
         Filter
       </button>
