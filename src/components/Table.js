@@ -7,6 +7,13 @@ function Table({ list }) {
   const [compareFilter, setCompareFilter] = useState('maior que');
   const [numberFilter, setNumberFilter] = useState(0);
   const [activeFilter, setActiveFilter] = useState([]);
+  const [remainingColumns, setRemainingColums] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
   const [finalList, setFinalList] = useState([]);
 
   useEffect(() => {
@@ -38,6 +45,13 @@ function Table({ list }) {
     });
 
     setActiveFilter(newArray);
+
+    const anotherArray = [];
+    remainingColumns.map((string) => anotherArray.push(string));
+    const result = anotherArray.filter((string) => string !== columnFilter);
+
+    setRemainingColums(result);
+    setColumnFilter(result[0]);
   };
 
   const filteredList = finalList.filter((obj) => obj.name.includes(nameFilter));
@@ -56,11 +70,9 @@ function Table({ list }) {
         data-testid="column-filter"
         onChange={ ({ target }) => { setColumnFilter(target.value); } }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {remainingColumns.map((string) => (
+          <option key={ string } value={ string }>{string}</option>
+        )) }
       </select>
 
       <select
