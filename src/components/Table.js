@@ -6,6 +6,7 @@ function Table({ list }) {
   const [columnFilter, setColumnFilter] = useState('population');
   const [compareFilter, setCompareFilter] = useState('maior que');
   const [numberFilter, setNumberFilter] = useState(0);
+  const [activeFilter, setActiveFilter] = useState([]);
   const [finalList, setFinalList] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,17 @@ function Table({ list }) {
     });
 
     setFinalList(final);
+
+    const ten = 10;
+    const newArray = [];
+    // activeFilter.map((obj) => newArray.push(obj));
+    newArray.push({
+      column: columnFilter,
+      compare: compareFilter,
+      number: numberFilter.toString(ten),
+    });
+
+    setActiveFilter(newArray);
   };
 
   const filteredList = finalList.filter((obj) => obj.name.includes(nameFilter));
@@ -73,6 +85,16 @@ function Table({ list }) {
       >
         Filter
       </button>
+
+      { activeFilter.map((obj) => (
+        <p key={ obj.column + obj.compare + obj.number }>
+          {obj.column}
+          {' '}
+          {obj.compare}
+          {' '}
+          {obj.number}
+        </p>
+      ))}
 
       <table>
         <thead>
