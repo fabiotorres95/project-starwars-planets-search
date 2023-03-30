@@ -56,6 +56,18 @@ function Table({ list }) {
 
   const filteredList = finalList.filter((obj) => obj.name.includes(nameFilter));
 
+  const deleteAllFilters = () => {
+    setFinalList(list);
+    setActiveFilter([]);
+    setRemainingColums([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
+  };
+
   return (
     <>
       <br />
@@ -99,14 +111,24 @@ function Table({ list }) {
       </button>
 
       { activeFilter.map((obj) => (
-        <p key={ obj.column + obj.compare + obj.number }>
-          {obj.column}
-          {' '}
-          {obj.compare}
-          {' '}
-          {obj.number}
-        </p>
+        <div key={ obj.column + obj.compare + obj.number } data-testid="filter">
+          <p>
+            {obj.column}
+            {' '}
+            {obj.compare}
+            {' '}
+            {obj.number}
+          </p>
+          <button>delete</button>
+        </div>
       ))}
+
+      <button
+        data-testid="button-remove-filters"
+        onClick={ () => deleteAllFilters() }
+      >
+        Remove all filters
+      </button>
 
       <table>
         <thead>
