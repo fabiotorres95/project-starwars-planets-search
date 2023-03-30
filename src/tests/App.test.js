@@ -51,8 +51,6 @@ describe('tests for App component', () => {
     const value = screen.getByTestId('value-filter');
     const filter = screen.getByTestId('button-filter');
 
-    // surface_water menor que 10
-    // orbital_period igual a 402
     const hoth = await screen.findByText('Hoth');
     const bespin = await screen.findByText('Bespin');
     expect(hoth).toBeInTheDocument();
@@ -85,5 +83,37 @@ describe('tests for App component', () => {
     userEvent.click(deleteButtons[1]);
     const fourthTable = await screen.findAllByRole('row');
     expect(fourthTable.length).toStrictEqual(2);
+  })
+
+  it('check if remove all filters button works', async () => {
+    const column = screen.getByTestId('column-filter');
+    const comparison = screen.getByTestId('comparison-filter');
+    const value = screen.getByTestId('value-filter');
+    const filter = screen.getByTestId('button-filter');
+
+    userEvent.type(value, '2000');
+    userEvent.click(filter);
+
+    userEvent.selectOptions(column, 'rotation_period');
+    userEvent.selectOptions(comparison, 'menor que')
+    userEvent.clear(value);
+    userEvent.type(value, '25');
+    userEvent.click(filter);
+
+    userEvent.selectOptions(comparison, 'igual a')
+    userEvent.clear(value);
+    userEvent.type(value, '5110');
+    userEvent.click(filter);
+
+    const bespin = await screen.findByText('Bespin');
+    expect(bespin).toBeInTheDocument();
+
+    const deleteButtons = screen.getAllByText('delete');
+    userEvent.click(deleteButtons[1]);
+  
+    const deleteAll = screen.getByTestId('button-remove-filters');
+    userEvent.click(deleteAll);
+    const table = await screen.findAllByRole('row');
+    expect(table.length).toStrictEqual(11);
   })
 })

@@ -86,7 +86,7 @@ function Table({ list }) {
         } else if (filterObj.compare === 'menor que') {
           result = obj[filterObj.column] < parseInt(filterObj.number, 10);
         } else if (filterObj.compare === 'igual a') {
-          result = parseInt(obj[filterObj.column], 10) === filterObj.number;
+          result = parseInt(obj[filterObj.column], 10) === parseInt(filterObj.number, 10);
         }
         return result;
       });
