@@ -68,6 +68,53 @@ function Table({ list }) {
     ]);
   };
 
+  const deleteFilter = (removedObj) => {
+    const newArray = [];
+    activeFilter.map((obj) => newArray.push(obj));
+    const arrayResult = newArray.filter((obj) => obj.column !== removedObj.column);
+
+    setActiveFilter(arrayResult);
+
+    let editedList = [];
+    list.map((obj) => editedList.push(obj));
+
+    arrayResult.map((filterObj) => {
+      console.log(filterObj);
+      editedList = editedList.filter((obj) => {
+        let result = false;
+        if (filterObj.compare === 'maior que') {
+          result = obj[filterObj.column] > parseInt(filterObj.number, 10);
+        } else if (filterObj.compare === 'menor que') {
+          result = obj[filterObj.column] < parseInt(filterObj.number, 10);
+        } else if (filterObj.compare === 'igual a') {
+          result = parseInt(obj[filterObj.column], 10) === filterObj.number;
+        }
+        return result;
+      });
+
+      return editedList;
+    });
+
+    setFinalList(editedList);
+
+    let oldColumn = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+
+    arrayResult.map((obj) => {
+      oldColumn = oldColumn.filter((string) => string !== obj.column);
+
+      return oldColumn;
+    });
+
+    setRemainingColums(oldColumn);
+    setColumnFilter(oldColumn[0]);
+  };
+
   return (
     <>
       <br />
@@ -119,7 +166,7 @@ function Table({ list }) {
             {' '}
             {obj.number}
           </p>
-          <button>delete</button>
+          <button onClick={ () => deleteFilter(obj) }>delete</button>
         </div>
       ))}
 
