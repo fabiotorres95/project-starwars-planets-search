@@ -79,7 +79,6 @@ function Table({ list }) {
     list.map((obj) => editedList.push(obj));
 
     arrayResult.map((filterObj) => {
-      console.log(filterObj);
       editedList = editedList.filter((obj) => {
         let result = false;
         if (filterObj.compare === 'maior que') {
