@@ -8,3 +8,6 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
+Projeto Starwars Planets Search - Trybe curso Front-End seção 9: "Context API e React Hooks"
+
+Front-End - projeto 9 de 10
